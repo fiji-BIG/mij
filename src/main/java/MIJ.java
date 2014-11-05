@@ -48,26 +48,27 @@
 //
 //=====================================================================================
 
-import java.awt.Rectangle;
-import java.awt.Polygon;
-import java.util.StringTokenizer;
 import ij.IJ;
 import ij.ImageJ;
-import ij.WindowManager;
 import ij.ImagePlus;
 import ij.ImageStack;
+import ij.WindowManager;
 import ij.gui.Line;
-import ij.gui.PointRoi;
 import ij.gui.OvalRoi;
+import ij.gui.PointRoi;
 import ij.gui.PolygonRoi;
 import ij.gui.Roi;
 import ij.measure.Calibration;
 import ij.measure.ResultsTable;
+import ij.plugin.filter.Analyzer;
 import ij.process.ByteProcessor;
 import ij.process.ColorProcessor;
 import ij.process.FloatProcessor;
 import ij.process.ShortProcessor;
-import ij.plugin.filter.Analyzer;
+
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.util.StringTokenizer;
 
 /**
  * Matlab to ImageJ interface.
