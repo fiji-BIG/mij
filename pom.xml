@@ -18,25 +18,16 @@
 	<name>jars/mij.jar</name>
 	<description></description>
 
-	<dependencies>
-		<!-- ImageJ dependencies -->
-		<dependency>
-			<groupId>net.imagej</groupId>
-			<artifactId>ij</artifactId>
-		</dependency>
-	</dependencies>
-
-	<ciManagement>
-		<system>Jenkins</system>
-		<url>http://jenkins.imagej.net/job/mij/</url>
-	</ciManagement>
-
 	<scm>
 		<connection>scm:git:git://github.com/fiji/mij</connection>
 		<developerConnection>scm:git:git@github.com:fiji/mij</developerConnection>
 		<tag>HEAD</tag>
 		<url>https://github.com/fiji/mij</url>
 	</scm>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://jenkins.imagej.net/job/mij/</url>
+	</ciManagement>
 
 	<repositories>
 		<!-- NB: for project parent -->
@@ -45,5 +36,13 @@
 			<url>http://maven.imagej.net/content/groups/public</url>
 		</repository>
 	</repositories>
+
+	<dependencies>
+		<!-- ImageJ dependencies -->
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>ij</artifactId>
+		</dependency>
+	</dependencies>
 
 </project>
