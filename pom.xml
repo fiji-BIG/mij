@@ -17,6 +17,15 @@
 	<url>http://imagej.net/Miji</url>
 	<inceptionYear>2010</inceptionYear>
 
+	<licenses>
+		<license>
+			<name>BIG</name>
+			<url>http://imagej.net/BIG_License</url>
+			<distribution>manual</distribution>
+			<comments>Not an OSS license!</comments>
+		</license>
+	</licenses>
+
 	<developers>
 		<developer>
 			<id>ctrueden</id>
@@ -70,6 +79,12 @@
 		<system>Jenkins</system>
 		<url>http://jenkins.imagej.net/job/mij/</url>
 	</ciManagement>
+
+	<properties>
+		<license.licenseName>big</license.licenseName>
+		<license.licenseResolver>file://${basedir}/license</license.licenseResolver>
+		<license.copyrightOwners>MIJ developers.</license.copyrightOwners>
+	</properties>
 
 	<repositories>
 		<!-- NB: for project parent -->
