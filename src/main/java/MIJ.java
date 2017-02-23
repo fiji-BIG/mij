@@ -719,10 +719,99 @@ public class MIJ {
 			return is;
 		}
 		default:
-			System.out.println("MIJ Error message: Unknow type of volumes.");
+			System.out.println("MIJ Error message: Unknown or invalid data type.");
 			return null;
 		}
 	}
+
+     /** 
+     * Create a new image in ImageJ from GNU Octave.
+     * 
+     * Octave Java has more limitations, but it can pass 1D double[] arrays.
+     * This method takes a double[] array, and a vector of dimensions. If
+     * ndims is 2, it will create a 2D double[][] image. If ndims has a 
+     * third element, it will create a 3D double[][][] ImageStack. 
+     * Note: Supports only 2 and 3D, all furter entries in the dims
+     * array will be ignored.
+     *
+     * @param object  GNU Octave 1D double array
+     * @param dims 2 or 3 value array containing true dimensions of the image.
+     * Note that dims array follows m-code conventions: [height, width, depth]
+     *
+     */
+    public static void createImage(Object object, double[] dims) {
+      createImage(object, dims, "Import from Octave", true);
+    }
+
+     /** 
+     * Create a new image in ImageJ from GNU Octave.
+     * 
+     * Octave Java has more limitations, but it can pass 1D double[] arrays.
+     * This method takes a double[] array, and a vector of dimensions. If
+     * ndims is 2, it will create a 2D double[][] image. If ndims has a 
+     * third element, it will create a 3D double[][][] ImageStack. 
+     * Note: Supports only 2 and 3D, all furter entries in the dims
+     * array will be ignored.
+     *
+     * @param object  GNU Octave 1D double array
+     * @param dims 2 or 3 value array containing true dimensions of the image.
+     * @param title Name of window title
+     * Note that dims array follows m-code conventions: [height, width, depth]
+     *
+     */
+    public static void createImage(Object object, double[] dims, String title) {
+      createImage(object, dims, title, true);
+    }
+    
+    /** 
+     * Create a new image in ImageJ from GNU Octave.
+     * 
+     * Octave Java has more limitations, but it can pass 1D double[] arrays.
+     * This method takes a double[] array, and a vector of dimensions. If
+     * ndims is 2, it will create a 2D double[][] image. If ndims has a 
+     * third element, it will create a 3D double[][][] ImageStack. 
+     * Note: Supports only 2 and 3D, all furter entries in the dims
+     * array will be ignored.
+     *
+     * @param object  GNU Octave 1D double array
+     * @param dims 2 or 3 value array containing true dimensions of the image.
+     * @param title Name of window title
+     * @param showImage Whether to display the newly created image or not 
+     * Note that dims array follows m-code conventions: [height, width, depth]
+     *
+     */
+    public static void createImage(Object object, double[] dims, String title, boolean showImage) {
+      double[] array = (double[])object;
+        if (dims.length < 2 || dims.length > 3) {
+          System.out.println("MIJ Error: Octave dimensions array must be 2D or 3D only.");
+          return;
+        } else if (dims.length == 2) {
+          final int h = (int)dims[0];
+          final int w = (int)dims[1];
+          double[][] image = new double[h][w];
+          for (int j = 0; j < w; j++) {
+            for (int i = 0; i < h; i++) {
+              int index = i + j*h;
+              image[i][j] = array[index];
+            }
+          }
+          createImage(title, image, showImage);
+        } else {
+          final int h = (int)dims[0];
+          final int w = (int)dims[1];
+          final int d = (int)dims[2];
+          double[][][] image = new double[h][w][d];
+          for (int k = 0; k < d; k++) {
+            for (int j = 0; j < w; j++) {
+              for (int i = 0; i < h; i++) {
+                final int index = i + j*h + k*h*w;
+                image[i][j][k] = array[index];
+              }
+            }
+          }
+          createImage(title, image, showImage);
+        }
+    }
 
 	/**
 	 * Create a new image in ImageJ from a Matlab variable.
