@@ -539,20 +539,13 @@ public class MIJ {
 	 * @return	Instance of the ResultsTable
 	 */
 	public static Object getResultsTable(){
-		ResultsTable rt=Analyzer.getResultsTable();
-		int col=0;
-		int[] index=new int[ResultsTable.MAX_COLUMNS];
-		for  (int cnt=0;cnt<ResultsTable.MAX_COLUMNS; cnt++) {
-			if (rt.columnExists(cnt)){
-				index[col]=cnt;
-				col++;
-			}
-		}
-		int counter=rt.getCounter();
-		double [][] results=new double[counter][col];
-		for( int i=0;i<col;i++) {
-			for( int j=0;j<counter;j++) {
-				results[j][i]=rt.getValueAsDouble(index[i],j);
+		ResultsTable rt = Analyzer.getResultsTable();
+		int col = rt.getLastColumn()+1;
+		int counter = rt.getCounter();
+		double[][] results = new double[counter][col];
+		for (int i = 0; i < col; i++) {
+			for (int j = 0; j < counter; j++) {
+				results[j][i] = rt.getValueAsDouble(i, j);
 			}
 		}
 		return results;
